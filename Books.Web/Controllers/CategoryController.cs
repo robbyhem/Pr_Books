@@ -17,5 +17,10 @@ namespace Books.Web.Controllers
             IEnumerable<Category> categories = _context.Categories;
             return View(categories);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
