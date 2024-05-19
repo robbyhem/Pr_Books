@@ -25,6 +25,10 @@ namespace Books.Web.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
+            if (category.Name == category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", "Seems you have entered incorrect input");
+            }
             if (ModelState.IsValid)
             {
                 _context.Categories.Add(category);
