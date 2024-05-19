@@ -22,5 +22,12 @@ namespace Books.Web.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
