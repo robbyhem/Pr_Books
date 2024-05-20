@@ -69,5 +69,34 @@ namespace Books.Web.Controllers
             }
             return View();
         }
+
+        //Define the Delete GET Action method
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category category = _context.Categories.First(x => x.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+        //Define the Delete POST Action method
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Category category = _context.Categories.First(x =>x.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
