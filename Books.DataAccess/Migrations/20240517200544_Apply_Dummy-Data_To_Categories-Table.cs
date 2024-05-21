@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Books.Web.Migrations
+namespace Books.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class Apply_DummyData_To_CategoriesTable : Migration

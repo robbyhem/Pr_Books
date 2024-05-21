@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Books.Web.Migrations
+namespace Books.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class Apply_CategoriesTable_ToDb : Migration
