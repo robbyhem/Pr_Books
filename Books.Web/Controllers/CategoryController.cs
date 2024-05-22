@@ -7,17 +7,17 @@ namespace Books.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository categoryRepo)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _categoryRepo = categoryRepo;
+            _unitOfWork = unitOfWork;
         }
 
         //Define a GET Action method for retrieving all records
         public IActionResult Index()
         {
-            IEnumerable<Category> categories = _categoryRepo.GetAll();
+            IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
             return View(categories);
         }
 
@@ -36,8 +36,8 @@ namespace Books.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                _categoryRepo.Add(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Add(category);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
@@ -52,7 +52,7 @@ namespace Books.Web.Controllers
                 return NotFound();
             }
 
-            Category category = _categoryRepo.Get(x => x.Id == id);
+            Category category = _unitOfWork.Category.Get(x => x.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -65,8 +65,8 @@ namespace Books.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.Update(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Update(category);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
@@ -81,7 +81,7 @@ namespace Books.Web.Controllers
                 return NotFound();
             }
 
-            Category category = _categoryRepo.Get(x => x.Id == id);
+            Category category = _unitOfWork.Category.Get(x => x.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -92,13 +92,13 @@ namespace Books.Web.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Category category = _categoryRepo.Get(x =>x.Id == id);
+            Category category = _unitOfWork.Category.Get(x =>x.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
-            _categoryRepo.Remove(category);
-            _categoryRepo.Save();
+            _unitOfWork.Category.Remove(category);
+            _unitOfWork.Save();
             TempData["success"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
         }
