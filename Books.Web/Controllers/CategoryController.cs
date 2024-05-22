@@ -1,4 +1,5 @@
 ﻿using Books.DataAccess.Data;
+using Books.DataAccess.Repository.IRepository;
 using Books.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,17 +7,17 @@ namespace Books.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _categoryRepo;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ICategoryRepository categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         //Define a GET Action method for retrieving all records
         public IActionResult Index()
         {
-            IEnumerable<Category> categories = _context.Categories;
+            IEnumerable<Category> categories = _categoryRepo.GetAll();
             return View(categories);
         }
 
@@ -35,8 +36,8 @@ namespace Books.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(category);
-                _context.SaveChanges();
+                _categoryRepo.Add(category);
+                _categoryRepo.Save();
                 TempData["success"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
@@ -51,7 +52,7 @@ namespace Books.Web.Controllers
                 return NotFound();
             }
 
-            Category category = _context.Categories.First(x => x.Id == id);
+            Category category = _categoryRepo.Get(x => x.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -64,8 +65,8 @@ namespace Books.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Update(category);
-                _context.SaveChanges();
+                _categoryRepo.Update(category);
+                _categoryRepo.Save();
                 TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
@@ -80,7 +81,7 @@ namespace Books.Web.Controllers
                 return NotFound();
             }
 
-            Category category = _context.Categories.First(x => x.Id == id);
+            Category category = _categoryRepo.Get(x => x.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -91,13 +92,13 @@ namespace Books.Web.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Category category = _context.Categories.First(x =>x.Id == id);
+            Category category = _categoryRepo.Get(x =>x.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            _categoryRepo.Remove(category);
+            _categoryRepo.Save();
             TempData["success"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
         }

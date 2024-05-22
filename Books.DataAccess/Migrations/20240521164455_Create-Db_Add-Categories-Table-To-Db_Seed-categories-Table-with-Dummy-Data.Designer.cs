@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Books.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240517190610_Apply_Categories-Table_ToDb")]
-    partial class Apply_CategoriesTable_ToDb
+    [Migration("20240521164455_Create-Db_Add-Categories-Table-To-Db_Seed-categories-Table-with-Dummy-Data")]
+    partial class CreateDb_AddCategoriesTableToDb_SeedcategoriesTablewithDummyData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Books.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Books.Web.Models.Category", b =>
+            modelBuilder.Entity("Books.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,11 +37,32 @@ namespace Books.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1001,
+                            DisplayOrder = 1,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            DisplayOrder = 2,
+                            Name = "SciFi"
+                        },
+                        new
+                        {
+                            Id = 1003,
+                            DisplayOrder = 3,
+                            Name = "History"
+                        });
                 });
 #pragma warning restore 612, 618
         }
