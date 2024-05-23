@@ -3,8 +3,9 @@ using Books.DataAccess.Repository.IRepository;
 using Books.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Books.Web.Controllers
+namespace Books.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -92,7 +93,7 @@ namespace Books.Web.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Category category = _unitOfWork.Category.Get(x =>x.Id == id);
+            Category category = _unitOfWork.Category.Get(x => x.Id == id);
             if (category == null)
             {
                 return NotFound();
