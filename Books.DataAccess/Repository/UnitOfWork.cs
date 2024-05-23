@@ -13,10 +13,13 @@ namespace Books.DataAccess.Repository
         private ApplicationDbContext _context;
         public ICategoryRepository Category {  get; private set; }
 
+        public IBookRepository Book {  get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Category = new CategoryRepository(_context);
+            Book = new BookRepository(_context);
         }
 
         public void Save()
