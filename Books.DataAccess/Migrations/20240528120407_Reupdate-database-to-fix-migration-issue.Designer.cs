@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Books.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240528110203_Reupdate-database-with-migrationTables-and-dummyData")]
-    partial class ReupdatedatabasewithmigrationTablesanddummyData
+    [Migration("20240528120407_Reupdate-database-to-fix-migration-issue")]
+    partial class Reupdatedatabasetofixmigrationissue
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,7 +157,7 @@ namespace Books.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categoriess");
 
                     b.HasData(
                         new

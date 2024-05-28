@@ -154,7 +154,7 @@ namespace Books.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categoriess");
 
                     b.HasData(
                         new

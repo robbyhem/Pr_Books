@@ -20,7 +20,7 @@ namespace Books.DataAccess.Repository
 
         public void Update(Category category)
         {
-            _context.Categories.Update(category);
+            _context.Categoriess.Update(category);
         }
     }
 }

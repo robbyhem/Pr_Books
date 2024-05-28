@@ -7,7 +7,7 @@
 namespace Books.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class ReupdatedatabasewithmigrationTablesanddummyData : Migration
+    public partial class Reupdatedatabasetofixmigrationissue : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,7 @@ namespace Books.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Categoriess",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -43,7 +43,7 @@ namespace Books.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Categoriess", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
@@ -60,7 +60,7 @@ namespace Books.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Categories",
+                table: "Categoriess",
                 columns: new[] { "Id", "DisplayOrder", "Name" },
                 values: new object[,]
                 {
@@ -77,7 +77,7 @@ namespace Books.DataAccess.Migrations
                 name: "Bookss");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Categoriess");
         }
     }
 }
