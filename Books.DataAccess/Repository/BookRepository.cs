@@ -19,7 +19,7 @@ namespace Books.DataAccess.Repository
 
         public void Update(Book book)
         {
-            _context.Books.Update(book);
+            _context.Bookss.Update(book);
         }
     }
 }

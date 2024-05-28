@@ -59,7 +59,7 @@ namespace Books.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Bookss");
 
                     b.HasData(
                         new
