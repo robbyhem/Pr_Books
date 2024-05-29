@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,14 +39,12 @@ namespace Books.Models
         [Required, Range(1, 100)] //Price for 100+
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price100 { get; set; }
-        //---------------------------------------------------------------------
-        //public int CategoryId { get; set; }
 
-        //[ForeignKey("CategoryId")]
-        //[ValidateNever]
-        //public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId"), ValidateNever]
+        public Category Category { get; set; }
 
         //[ValidateNever]
-        //public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

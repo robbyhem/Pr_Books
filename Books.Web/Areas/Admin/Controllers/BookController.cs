@@ -1,6 +1,8 @@
 ﻿using Books.DataAccess.Repository.IRepository;
 using Books.Models;
+using Books.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Books.Web.Areas.Admin.Controllers
 {
@@ -24,20 +26,37 @@ namespace Books.Web.Areas.Admin.Controllers
         //Define the Create GET Action method
         public IActionResult Create()
         {
-            return View();
+            BookVM bookVM = new BookVM()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                }),
+                Book = new Book()
+            };
+            return View(bookVM);
         }
         //Define the Create POST Action method
         [HttpPost]
-        public IActionResult Create(Book book)
+        public IActionResult Create(BookVM bookVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Book.Add(book);
+                _unitOfWork.Book.Add(bookVM.Book);
                 _unitOfWork.Save();
                 TempData["success"] = "Book Added Successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                bookVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                });
+                return View(bookVM);
+            }
         }
 
         //Define the Edit GET Action method
