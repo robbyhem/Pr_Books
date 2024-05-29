@@ -13,15 +13,15 @@
         <form method="post" class="row">
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
-                <div class="form-floating py-2 col-12">
-                    <label asp-for="Name" class="ms-2">Name</label>
-                    <input asp-for="Name" class="form-control border-0 shadow" />
+                <div class="form-floating py-3 col-12">
+                    <label asp-for="Name" class="ms-0">Name</label>
+                    <input asp-for="Name" type="text" class="form-control border-0 shadow" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                     <!--<input type="type" name="name" value="" />-->
                 </div>
 
-                <div class="form-floating py-2 col-12">
-                    <label asp-for="DisplayOrder" class="ms-2">Display Order</label>
+                <div class="form-floating py-3 col-12">
+                    <label asp-for="DisplayOrder" class="ms-0">Display Order</label>
                     <input asp-for="DisplayOrder" class="form-control border-0 shadow" />
                     <span asp-validation-for="DisplayOrder" class="text-danger"></span>
                 </div>
