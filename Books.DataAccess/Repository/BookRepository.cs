@@ -20,6 +20,24 @@ namespace Books.DataAccess.Repository
         public void Update(Book book)
         {
             _context.Bookss.Update(book);
+
+            //var bookDb = _context.Bookss.FirstOrDefault(x => x.Id == book.Id);
+            //if (bookDb != null)
+            //{
+            //    bookDb.Title = book.Title;
+            //    bookDb.Author = book.Author;
+            //    bookDb.Description = book.Description;
+            //    bookDb.ISBN = book.ISBN;
+            //    bookDb.ListPrice = book.ListPrice;
+            //    bookDb.Price = book.Price;
+            //    bookDb.Price50 = book.Price50;
+            //    bookDb.Price100 = book.Price100;
+            //    bookDb.CategoryId = book.CategoryId;
+            //    if (bookDb.ImageUrl != null)
+            //    {
+            //        book.ImageUrl = book.ImageUrl;
+            //    }
+            //}
         }
     }
 }

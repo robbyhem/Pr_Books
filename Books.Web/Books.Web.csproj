@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Books.DataAccess\Books.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\book\" />
+  </ItemGroup>
+
 </Project>

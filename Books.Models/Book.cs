@@ -44,7 +44,7 @@ namespace Books.Models
         [ForeignKey("CategoryId"), ValidateNever]
         public Category Category { get; set; }
 
-        //[ValidateNever]
+        [ValidateNever]
         public string ImageUrl { get; set; }
     }
 }
