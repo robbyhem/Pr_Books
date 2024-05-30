@@ -22,7 +22,7 @@ namespace Books.Web.Areas.Admin.Controllers
         //Define a GET Action method for retrieving all records
         public IActionResult Index()
         {
-            IEnumerable<Book> books = _unitOfWork.Book.GetAll();
+            IEnumerable<Book> books = _unitOfWork.Book.GetAll(include: "Category");
             return View(books);
         }
 
