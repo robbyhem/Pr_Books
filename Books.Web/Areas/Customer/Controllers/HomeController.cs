@@ -23,6 +23,12 @@ namespace Books.Web.Areas.Customer.Controllers
             return View(books);
         }
 
+        public IActionResult Details(int bookId)
+        {
+            Book book = _unitOfWork.Book.Get(x => x.Id == bookId, include: "Category");
+            return View(book);
+        }
+
         public IActionResult Privacy()
         {
             return View();
