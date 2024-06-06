@@ -85,15 +85,16 @@ namespace Books.Web.Areas.Admin.Controllers
                 if (bookVM.Book.Id == 0)
                 {
                     _unitOfWork.Book.Add(bookVM.Book);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Book Added Successfully";
                 }
                 else
                 {
                     _unitOfWork.Book.Update(bookVM.Book);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Book Updated Successfully";
                 }
 
-                //_unitOfWork.Book.Add(bookVM.Book);
-                _unitOfWork.Save();
-                TempData["success"] = "Book Added Successfully";
                 return RedirectToAction("Index");
             }
             else
@@ -107,34 +108,37 @@ namespace Books.Web.Areas.Admin.Controllers
             }
         }
 
-        //Define the Delete GET Action method
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            IEnumerable<Book> books = _unitOfWork.Book.GetAll(include: "Category");
+            return Json(new { data = books });
+        }
+
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
+            var bookToDelete = _unitOfWork.Book.Get(x => x.Id == id);
+            if (bookToDelete == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Book not found" });
+            }
+            
+            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, bookToDelete.ImageUrl.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
             }
 
-            Book book = _unitOfWork.Book.Get(x => x.Id == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-            return View(book);
-        }
-        //Define the Delete POST Action method
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            Book book = _unitOfWork.Book.Get(x => x.Id == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-            _unitOfWork.Book.Remove(book);
+            _unitOfWork.Book.Remove(bookToDelete);
             _unitOfWork.Save();
-            TempData["success"] = "Category Deleted Successfully";
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Delete was successful" });
         }
+
+        #endregion
     }
 }
