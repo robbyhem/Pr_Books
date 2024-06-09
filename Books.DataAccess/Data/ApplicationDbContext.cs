@@ -11,6 +11,7 @@ namespace Books.DataAccess.Data
 
         public DbSet<Category> Categoriess { get; set; }
         public DbSet<Book> Bookss {  get; set; }
+        public DbSet<ApplicationUser> ApplicationUserss { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
