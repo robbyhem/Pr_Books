@@ -1,12 +1,15 @@
 ﻿using Books.DataAccess.Repository.IRepository;
 using Books.Models;
 using Books.Models.ViewModels;
+using Books.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Books.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
